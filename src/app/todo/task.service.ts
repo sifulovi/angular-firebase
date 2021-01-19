@@ -22,8 +22,8 @@ export class TaskService {
 
   todoList$: Observable<Task[]> = of(this.todoList);
 
-  getTodoList(): Observable<any[]> {
-    return this.fireStore.collection('project').valueChanges();
+  getTodoList(): Observable<Task[]> {
+    return this.fireStore.collection<Task>('project').valueChanges();
 
   }
 
