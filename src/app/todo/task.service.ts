@@ -1,13 +1,14 @@
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Task } from './task.model';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
 
-  constructor() { }
+  constructor(private fireStore: AngularFirestore) { }
 
 
   todoList: Task[] = [
@@ -21,12 +22,14 @@ export class TaskService {
 
   todoList$: Observable<Task[]> = of(this.todoList);
 
-  getTodoList(): Observable<Task[]> {
-    return this.todoList$;
+  getTodoList(): Observable<any[]> {
+    return this.fireStore.collection('project').valueChanges();
+
   }
 
   saveTask(data: Task): void {
     this.todoList.push(data);
+    this.fireStore.collection('project').add(data);
   }
 
 }
