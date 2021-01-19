@@ -1,3 +1,4 @@
 # Angular Firebase App
 
-[text](https://angular-task-c01d8.web.app/)
+
+[Project is deployed here ](https://angular-task-c01d8.web.app/)
