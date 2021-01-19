@@ -1,3 +1,4 @@
+import { TaskService } from './../task.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Observable, Observer } from 'rxjs';
@@ -15,7 +16,7 @@ export class CreateTodoComponent implements OnInit {
   validateForm: FormGroup;
 
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private taskService: TaskService) {
     this.validateForm = this.fb.group({
       title: ['', [Validators.required]],
       description: ['', [Validators.required]]
@@ -49,6 +50,7 @@ export class CreateTodoComponent implements OnInit {
       this.validateForm.controls[key].updateValueAndValidity();
     }
     console.log(value);
+    this.taskService.saveTask(value);
     this.handleOk();
   }
 

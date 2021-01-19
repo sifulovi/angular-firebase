@@ -1,4 +1,7 @@
+import { TaskService } from './task.service';
 import { Component, OnInit } from '@angular/core';
+import { Task } from './task.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-todo',
@@ -8,22 +11,14 @@ import { Component, OnInit } from '@angular/core';
 export class TodoComponent implements OnInit {
 
   isShowModal = false;
-  public message = 'sdfsdf';
-  todoList = [
-    { id: 1, title: 'Angular', description: 'today i am gonna learn Angular' },
-    { id: 1, title: 'React', description: 'today i am gonna learn React' },
-    { id: 1, title: 'Vue', description: 'today i am gonna learn Vue' },
-    { id: 1, title: '.Net', description: 'today i am gonna learn .Net' },
-    { id: 1, title: 'Express', description: 'today i am gonna learn Express' },
-    { id: 1, title: 'FireBase', description: 'today i am gonna learn FireBase' },
-  ];
+  taskList$!: Observable<Task[]>;
 
-  constructor() {
-    console.log(this.isShowModal);
+  constructor(private service: TaskService) {
 
   }
 
   ngOnInit(): void {
+    this.taskList$ = this.service.getTodoList();
   }
 
   showModal(): void {
