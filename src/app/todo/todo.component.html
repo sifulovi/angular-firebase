@@ -1,0 +1,23 @@
+<nz-content>
+  <div style="background: #ECECEC;padding:30px;">
+    <button (click)='showModal()' nz-button nzType="primary">Create New Todo</button>
+    <app-create-todo *ngIf='isShowModal' (modalEmitter)='isShowModal=$event' [isShowModal]="isShowModal"></app-create-todo>
+    <nz-divider></nz-divider>
+
+    <div nz-row [nzGutter]=[8,8]>
+      <div *ngFor='let todo of todoList' nz-col [nzSpan]="8">
+        <nz-card nzHoverable nzTitle='{{todo.title}}' [nzActions]="[actionEdit, actionEllipsis]">
+          <p> {{todo.description}} </p>
+        </nz-card>
+        <ng-template #actionEdit>
+          <i nz-icon nzType="edit"></i>
+        </ng-template>
+        <ng-template #actionEllipsis>
+          <i nz-icon nzType="ellipsis"></i>
+        </ng-template>
+      </div>
+
+    </div>
+  </div>
+
+</nz-content>
