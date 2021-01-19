@@ -1,0 +1,73 @@
+<nz-content>
+    <div style="background: #ECECEC;padding:30px;">
+      <button  nz-button nzType="primary">Create New Todo</button>
+      <nz-divider></nz-divider>
+  
+      <div nz-row [nzGutter]=[8]>
+        <div nz-col [nzSpan]="8">
+            <div class="todo">
+                <h2>TODO</h2>
+               <div class="content" *ngFor='let todo of projectTasks.do' >
+                <nz-card nzHoverable nzTitle='{{todo.title}}' [nzActions]="[actionEdit, actionEllipsis]">
+                    <p>{{todo.comment}} </p>
+                  </nz-card>
+                  <ng-template #actionEdit>
+                    
+                      <i nz-icon nzType="edit"></i>
+                  </ng-template>
+                  <ng-template #actionEllipsis>
+                    <i nz-icon nzType="ellipsis"></i>
+                  </ng-template>
+               </div>
+               <div class="content">
+                <nz-card nzHoverable nzTitle='sdsdf' [nzActions]="[actionEdit, actionEllipsis]">
+                    <p>wxy </p>
+                  </nz-card>
+                  <ng-template #actionEdit>
+                    
+                      <i nz-icon nzType="edit"></i>
+                  </ng-template>
+                  <ng-template #actionEllipsis>
+                    <i nz-icon nzType="ellipsis"></i>
+                  </ng-template>
+               </div>
+            </div>
+    
+        </div>
+        <div  nz-col [nzSpan]="8">
+
+            
+            <div class="todo">
+                <h2>WIP</h2>
+                <nz-card nzHoverable nzTitle='sdsdf' [nzActions]="[actionEdit, actionEllipsis]">
+                    <p>wxy </p>
+                  </nz-card>
+                  <ng-template #actionEdit>
+                    
+                      <i nz-icon nzType="edit"></i>
+                  </ng-template>
+                  <ng-template #actionEllipsis>
+                    <i nz-icon nzType="ellipsis"></i>
+                  </ng-template>
+            </div>
+        </div>
+        <div  nz-col [nzSpan]="8">
+            <div class="todo">
+                <h2>WIP</h2>
+                <nz-card nzHoverable nzTitle='sdsdf' [nzActions]="[actionEdit, actionEllipsis]">
+                    <p>wxy </p>
+                  </nz-card>
+                  <ng-template #actionEdit>
+                    
+                      <i nz-icon nzType="edit"></i>
+                  </ng-template>
+                  <ng-template #actionEllipsis>
+                    <i nz-icon nzType="ellipsis"></i>
+                  </ng-template>
+            </div>
+        </div>
+  
+      </div>
+    </div>
+  
+  </nz-content>

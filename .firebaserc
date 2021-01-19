@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angular-task-c01d8": {
+      "hosting": {
+        "angular-firebase": [
+          "angular-task-c01d8"
+        ]
+      }
+    }
+  }
+}

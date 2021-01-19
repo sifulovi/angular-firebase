@@ -1,6 +1,6 @@
 <nz-content>
   <div style="background: #ECECEC;padding:30px;">
-    <button (click)='showModal()' nz-button nzType="primary">Create New Todo</button>
+    <button (click)='showModal()' nz-button nzType="primary">Create New Project</button>
     <app-create-todo *ngIf='isShowModal' (modalEmitter)='isShowModal=$event' [isShowModal]="isShowModal"></app-create-todo>
     <nz-divider></nz-divider>
 
@@ -10,7 +10,10 @@
           <p> {{todo.description}} </p>
         </nz-card>
         <ng-template #actionEdit>
-          <i nz-icon nzType="edit"></i>
+          <a  [routerLink]="['/project', todo.title + '-' + (i+1)]">
+            <i nz-icon nzType="edit"></i>
+           </a>
+
         </ng-template>
         <ng-template #actionEllipsis>
           <i nz-icon nzType="ellipsis"></i>
