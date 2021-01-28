@@ -14,6 +14,7 @@ export class CreateTodoComponent implements OnInit {
   isOkLoading = false;
   @Output() modalEmitter = new EventEmitter();
   validateForm: FormGroup;
+  selectedValue: null;
 
 
   constructor(private fb: FormBuilder, private taskService: TaskService) {
