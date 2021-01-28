@@ -10,22 +10,22 @@ export class TaskBoardComponent implements OnInit {
 
   projectTasks = {
     do: [
-      { title: 'know angular routing', comment: 'done' },
-      { title: 'know angular RxJS', comment: 'done' },
-      { title: 'know angular Dialog', comment: 'done' },
-      { title: 'know angular History', comment: 'done' },
+      { title: 'DO angular routing', comment: 'do' },
+      { title: 'DO angular RxJS', comment: 'do' },
+      { title: 'DO angular Dialog', comment: 'do' },
+      { title: 'DO angular History', comment: 'do' },
     ],
     wip: [
-      { title: 'know angular routing', comment: 'done' },
-      { title: 'know angular RxJS', comment: 'done' },
-      { title: 'know angular Dialog', comment: 'done' },
-      { title: 'know angular History', comment: 'done' },
+      { title: 'WIP angular routing', comment: 'work in progress' },
+      { title: 'WIP angular RxJS', comment: 'work in progress' },
+      { title: 'WIP angular Dialog', comment: 'work in progress' },
+      { title: 'WIP angular History', comment: 'work in progress' },
     ],
     done: [
-      { title: 'know angular routing', comment: 'done' },
-      { title: 'know angular RxJS', comment: 'done' },
-      { title: 'know angular Dialog', comment: 'done' },
-      { title: 'know angular History', comment: 'done' },
+      { title: 'DONE angular routing', comment: 'done' },
+      { title: 'DONE angular RxJS', comment: 'done' },
+      { title: 'DONE angular Dialog', comment: 'done' },
+      { title: 'DONE angular History', comment: 'done' },
     ]
   };
 

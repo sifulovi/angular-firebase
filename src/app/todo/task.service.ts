@@ -18,7 +18,7 @@ export class TaskService {
     { title: '.Net', description: 'today i am gonna learn .Net' },
     { title: 'Express', description: 'today i am gonna learn Express' },
     { title: 'FireBase', description: 'today i am gonna learn FireBase' },
-  ]
+  ];
 
   todoList$: Observable<Task[]> = of(this.todoList);
 
