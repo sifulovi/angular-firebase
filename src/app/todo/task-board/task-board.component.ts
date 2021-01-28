@@ -32,7 +32,7 @@ export class TaskBoardComponent implements OnInit {
   }
 
   reload(): void {
-    this.taskService.getTask().subscribe((data: TaskModel[]) => {
+    this.taskService.getTask(this.projectId).subscribe((data: TaskModel[]) => {
       this.tasks = data.map((task: any) => {
         return {
           key: task.payload.doc.id,

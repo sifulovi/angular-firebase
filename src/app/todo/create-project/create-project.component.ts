@@ -33,7 +33,7 @@ export class CreateProjectComponent implements OnInit {
     this.isOkLoading = true;
     setTimeout(() => {
       this.handleModalEmitter();
-    }, 3000);
+    }, 1000);
   }
 
   handleModalEmitter(): void {

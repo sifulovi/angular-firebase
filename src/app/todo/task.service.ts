@@ -22,8 +22,8 @@ export class TaskService {
     return this.fireStore.collection('project').snapshotChanges();
   }
 
-  getTask(): any {
-    return this.fireStore.collection<TaskModel[]>('task').snapshotChanges();
+  getTask(projectId: string): any {
+    return this.fireStore.collection('task', (ref) => ref.where('projectId', '==', projectId)).snapshotChanges();
   }
 
   saveProject(data: Project): void {
