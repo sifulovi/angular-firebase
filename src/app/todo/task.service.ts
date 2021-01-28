@@ -36,5 +36,9 @@ export class TaskService {
     this.fireStore.collection('task').add(data);
   }
 
+  updateTodo(data: TaskModel): void {
+    this.fireStore.collection('task').doc(data.taskKey).update(data);
+  }
+
 
 }

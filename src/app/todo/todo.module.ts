@@ -8,10 +8,11 @@ import { CreateProjectComponent } from './create-project/create-project.componen
 import { TaskBoardComponent } from './task-board/task-board.component';
 import { CreateTaskComponent } from './task-board/create-task/create-task.component';
 import {FormsModule} from '@angular/forms';
+import { EditTaskComponent } from './task-board/edit-task/edit-task.component';
 
 
 @NgModule({
-  declarations: [TodoComponent, CreateProjectComponent, TaskBoardComponent, CreateTaskComponent],
+  declarations: [TodoComponent, CreateProjectComponent, TaskBoardComponent, CreateTaskComponent, EditTaskComponent],
     imports: [
         CommonModule,
         TodoRoutingModule,

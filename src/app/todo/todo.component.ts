@@ -11,22 +11,22 @@ import {Observable} from 'rxjs';
 export class TodoComponent implements OnInit {
 
   isShowModal = false;
-  taskList: Project[] = [];
+  projects: Project[] = [];
 
   constructor(private service: TaskService) {
 
   }
 
   ngOnInit(): void {
-    this.taskList = this.service.getProjectList();
+    this.projects = this.service.getProjectList();
     this.service.getProjectList().subscribe((data: any) => {
-      this.taskList = data.map((project: any) => {
+      this.projects = data.map((project: any) => {
         return {
           key: project.payload.doc.id,
           ...project.payload.doc.data()
         };
       });
-      console.log(this.taskList);
+      console.log(this.projects);
     });
   }
 

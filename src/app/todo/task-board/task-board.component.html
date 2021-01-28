@@ -2,11 +2,14 @@
   <div style="background: #ECECEC;padding:30px;">
     <button (click)='showModalForCreate()' nz-button nzType="primary">Create New Todo</button>
 
-    <app-create-task *ngIf='isShowModal' [projectId]="projectId" (modalEmitter)='isShowModal=$event' [isShowModal]="isShowModal"></app-create-task>
+    <app-create-task *ngIf='isShowModalForCreate' [projectId]="projectId" (modalEmitter)='isShowModalForCreate=$event'
+                     [isShowModal]="isShowModalForCreate"></app-create-task>
+    <app-edit-task *ngIf='isShowModalForEdit' [taskData]="editTaskData" (modalEmitter)='isShowModalForEdit=$event'
+                   [isShowModal]="isShowModalForEdit"></app-edit-task>
 
     <nz-divider></nz-divider>
 
-    <div nz-row [nzGutter]="[16, 16]">
+    <div nz-row [nzGutter]="[16, 16]" *ngIf="projectTasks">
 
       <div nz-col [nzSpan]="8">
         <div class="todo">
@@ -17,7 +20,7 @@
             </nz-card>
             <ng-template #actionEdit>
 
-              <i nz-icon nzType="edit" (click)='showItem(todo.taskName)'></i>
+              <i nz-icon nzType="edit" (click)='showModalForEdit(todo)'></i>
             </ng-template>
             <ng-template #actionEllipsis>
               <i nz-icon nzType="ellipsis"></i>
@@ -35,7 +38,7 @@
               <p>{{todo.taskDescription}} </p>
             </nz-card>
             <ng-template #actionEdit>
-              <i nz-icon nzType="edit" (click)='showItem(todo.taskName)' ></i>
+              <i nz-icon nzType="edit" (click)='showModalForEdit(todo)'></i>
             </ng-template>
             <ng-template #actionEllipsis>
               <i nz-icon nzType="ellipsis"></i>
@@ -54,7 +57,7 @@
             </nz-card>
             <ng-template #actionEdit>
 
-              <i nz-icon nzType="edit" (click)='showItem(todo.taskName)'  ></i>
+              <i nz-icon nzType="edit" (click)='showModalForEdit(todo)'></i>
             </ng-template>
             <ng-template #actionEllipsis>
               <i nz-icon nzType="ellipsis"></i>

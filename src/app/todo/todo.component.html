@@ -5,13 +5,13 @@
                      [isShowModal]="isShowModal"></app-create-todo>
     <nz-divider></nz-divider>
 
-    <div nz-row [nzGutter]=[8,8] *ngIf="taskList?.length > 0">
-      <div *ngFor='let todo of taskList; ' nz-col [nzSpan]="8">
-        <nz-card nzHoverable nzTitle='{{todo.title}}' [nzActions]="[actionEdit, actionEllipsis]">
-          <p> {{todo.description}} </p>
+    <div nz-row [nzGutter]=[8,8] *ngIf="projects">
+      <div *ngFor='let project of projects; ' nz-col [nzSpan]="8">
+        <nz-card nzHoverable nzTitle='{{project.title}}' [nzActions]="[actionEdit, actionEllipsis]">
+          <p> {{project.description}} </p>
         </nz-card>
         <ng-template #actionEdit>
-          <a [routerLink]="['/project', todo.key]">
+          <a [routerLink]="['/project', project.key]">
             <i nz-icon nzType="edit"></i>
           </a>
 

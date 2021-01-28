@@ -11,9 +11,11 @@ import {TaskModel} from './model/task.model';
 })
 export class TaskBoardComponent implements OnInit {
 
-  isShowModal = false;
+  isShowModalForCreate = false;
+  isShowModalForEdit = false;
   projectId = '';
   tasks: TaskModel[] = [];
+  editTaskData = {} as TaskModel;
   projectTasks: Projects = {
     do: [],
     wip: [],
@@ -35,7 +37,7 @@ export class TaskBoardComponent implements OnInit {
     this.taskService.getTask(this.projectId).subscribe((data: TaskModel[]) => {
       this.tasks = data.map((task: any) => {
         return {
-          key: task.payload.doc.id,
+          taskKey: task.payload.doc.id,
           ...task.payload.doc.data()
         };
       });
@@ -59,7 +61,12 @@ export class TaskBoardComponent implements OnInit {
   }
 
   showModalForCreate(): void {
-    this.isShowModal = true;
+    this.isShowModalForCreate = true;
+  }
+
+  showModalForEdit(task: TaskModel): void {
+    this.isShowModalForEdit = true;
+    this.editTaskData = task;
   }
 
   handleCancel(): void {
