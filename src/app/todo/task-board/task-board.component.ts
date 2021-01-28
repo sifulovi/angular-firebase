@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TaskBoardComponent implements OnInit {
 
-
+  isShowModal = false;
   projectTasks = {
     do: [
       { title: 'DO angular routing', comment: 'do' },
@@ -33,5 +33,17 @@ export class TaskBoardComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  showItem(item: string): void {
+    console.log(item);
+  }
+
+  showModal(): void {
+    this.isShowModal = true;
+  }
+
+  handleCancel(): void { }
+
+  handleOk(): void { }
 
 }

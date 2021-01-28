@@ -1,0 +1,24 @@
+<nz-modal [(nzVisible)]="isShowModal" nzTitle="Add a Task" (nzOnCancel)="handleCancel()">
+    <div *nzModalContent>
+      <form nz-form [formGroup]="validateForm">
+        
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzRequired>Title</nz-form-label>
+          <nz-form-control [nzSpan]="15" nzHasFeedback nzErrorTip="Please write your title">
+            <input nz-input type="text" formControlName="title" placeholder="Title " />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzRequired>Description</nz-form-label>
+          <nz-form-control [nzSpan]="15" nzErrorTip="Please write something here!">
+            <textarea formControlName="description" nz-input rows="4" placeholder="write any thing"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+    <div *nzModalFooter>
+      <button nz-button nzType="primary" [nzLoading]="isOkLoading" (click)="submitForm(validateForm.value)" [disabled]="!validateForm.valid">Submit</button>
+      <button nz-button (click)="resetForm($event)">Reset</button>
+    </div>
+  </nz-modal>

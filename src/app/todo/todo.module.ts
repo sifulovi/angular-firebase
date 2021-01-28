@@ -6,10 +6,11 @@ import { TodoComponent } from './todo.component';
 import { CommonSharedModule } from '../common.module';
 import { CreateTodoComponent } from './create-todo/create-todo.component';
 import { TaskBoardComponent } from './task-board/task-board.component';
+import { CreateTaskComponent } from './task-board/create-task/create-task.component';
 
 
 @NgModule({
-  declarations: [TodoComponent, CreateTodoComponent, TaskBoardComponent],
+  declarations: [TodoComponent, CreateTodoComponent, TaskBoardComponent, CreateTaskComponent],
   imports: [
     CommonModule,
     TodoRoutingModule,
