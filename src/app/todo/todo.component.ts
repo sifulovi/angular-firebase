@@ -18,7 +18,7 @@ export class TodoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.taskList$ = this.service.getTodoList();
+    this.taskList$ = this.service.getProjectList();
   }
 
   showModal(): void {

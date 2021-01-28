@@ -5,10 +5,10 @@ import { Observable, Observer } from 'rxjs';
 
 @Component({
   selector: 'app-create-todo',
-  templateUrl: './create-todo.component.html',
-  styleUrls: ['./create-todo.component.scss']
+  templateUrl: './create-project.component.html',
+  styleUrls: ['./create-project.component.scss']
 })
-export class CreateTodoComponent implements OnInit {
+export class CreateProjectComponent implements OnInit {
 
   @Input() public isShowModal = false;
   isOkLoading = false;

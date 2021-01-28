@@ -51,7 +51,7 @@ export class CreateTaskComponent implements OnInit {
       this.validateForm.controls[key].updateValueAndValidity();
     }
     console.log(value);
-    this.taskService.saveTask(value);
+    this.taskService.saveTodo(value);
     this.handleOk();
   }
 
