@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TaskService } from '../../task.service';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {TaskService} from '../../task.service';
+import {TaskModel} from '../model/task.model';
 
 @Component({
   selector: 'app-create-task',
@@ -10,6 +11,9 @@ import { TaskService } from '../../task.service';
 export class CreateTaskComponent implements OnInit {
 
   @Input() public isShowModal = false;
+  tasks: TaskModel = {projectId: '', taskDescription: '', taskKey: '', taskName: '', taskStatus: ''};
+
+  @Input() public projectId = '';
   isOkLoading = false;
   @Output() modalEmitter = new EventEmitter();
   validateForm: FormGroup;
@@ -18,12 +22,14 @@ export class CreateTaskComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private taskService: TaskService) {
     this.validateForm = this.fb.group({
-      title: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      status: ['', [Validators.required]]
+      taskTitle: ['', [Validators.required]],
+      taskDescription: ['', [Validators.required]],
+      taskStatus: ['', [Validators.required]]
     });
   }
+
   ngOnInit(): void {
+    this.tasks.projectId = this.projectId;
   }
 
   handleCancel(): void {
@@ -43,15 +49,18 @@ export class CreateTaskComponent implements OnInit {
   }
 
 
-
-  submitForm(value: { description: string; title: string }): void {
+  submitForm(value: TaskModel): void {
     // tslint:disable-next-line: forin
     for (const key in this.validateForm.controls) {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
-    console.log(value);
-    this.taskService.saveTodo(value);
+    const payload = {
+      ...value,
+      projectId: this.projectId,
+    };
+    console.log(payload);
+    this.taskService.saveTodo(payload);
     this.handleOk();
   }
 

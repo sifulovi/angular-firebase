@@ -1,8 +1,8 @@
 <nz-content>
   <div style="background: #ECECEC;padding:30px;">
-    <button (click)='showModal()' nz-button nzType="primary">Create New Todo</button>
+    <button (click)='showModalForCreate()' nz-button nzType="primary">Create New Todo</button>
 
-    <app-create-task *ngIf='isShowModal' (modalEmitter)='isShowModal=$event' [isShowModal]="isShowModal"></app-create-task>
+    <app-create-task *ngIf='isShowModal' [projectId]="projectId" (modalEmitter)='isShowModal=$event' [isShowModal]="isShowModal"></app-create-task>
 
     <nz-divider></nz-divider>
 

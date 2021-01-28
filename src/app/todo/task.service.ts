@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 import {Project} from './project.model';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
+import {TaskModel} from './task-board/model/task.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class TaskService {
   todoList$: Observable<Project[]> = of(this.todoList);
 
   getProjectList(): any {
-   return this.fireStore.collection('project').snapshotChanges();
+    return this.fireStore.collection('project').snapshotChanges();
   }
 
   getTodoList(): Observable<Project[]> {
@@ -30,9 +31,11 @@ export class TaskService {
     this.fireStore.collection('project').add(data);
   }
 
-  saveTodo(data: Project): void {
-    this.todoList.push(data);
-    this.fireStore.collection('todo').add(data);
+  saveTodo(data: TaskModel): void {
+    // tslint:disable-next-line:no-debugger
+    debugger;
+    // this.todoList.push(data);
+    this.fireStore.collection('task').add(data);
   }
 
 

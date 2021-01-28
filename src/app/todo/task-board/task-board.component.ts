@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {Task} from 'protractor/built/taskScheduler';
+import {TaskModel} from './model/task.model';
 
 @Component({
   selector: 'app-task-board',
@@ -9,32 +11,34 @@ import {ActivatedRoute} from '@angular/router';
 export class TaskBoardComponent implements OnInit {
 
   isShowModal = false;
+  projectId = '';
   projectTasks = {
     do: [
-      { title: 'DO angular routing', comment: 'do' },
-      { title: 'DO angular RxJS', comment: 'do' },
-      { title: 'DO angular Dialog', comment: 'do' },
-      { title: 'DO angular History', comment: 'do' },
+      {title: 'DO angular routing', comment: 'do'},
+      {title: 'DO angular RxJS', comment: 'do'},
+      {title: 'DO angular Dialog', comment: 'do'},
+      {title: 'DO angular History', comment: 'do'},
     ],
     wip: [
-      { title: 'WIP angular routing', comment: 'work in progress' },
-      { title: 'WIP angular RxJS', comment: 'work in progress' },
-      { title: 'WIP angular Dialog', comment: 'work in progress' },
-      { title: 'WIP angular History', comment: 'work in progress' },
+      {title: 'WIP angular routing', comment: 'work in progress'},
+      {title: 'WIP angular RxJS', comment: 'work in progress'},
+      {title: 'WIP angular Dialog', comment: 'work in progress'},
+      {title: 'WIP angular History', comment: 'work in progress'},
     ],
     done: [
-      { title: 'DONE angular routing', comment: 'done' },
-      { title: 'DONE angular RxJS', comment: 'done' },
-      { title: 'DONE angular Dialog', comment: 'done' },
-      { title: 'DONE angular History', comment: 'done' },
+      {title: 'DONE angular routing', comment: 'done'},
+      {title: 'DONE angular RxJS', comment: 'done'},
+      {title: 'DONE angular Dialog', comment: 'done'},
+      {title: 'DONE angular History', comment: 'done'},
     ]
   };
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe( paramMap => {
-      console.log(paramMap.get('id'));
+    this.route.paramMap.subscribe(paramMap => {
+      this.projectId = (paramMap.get('id') as string);
     });
   }
 
@@ -42,12 +46,14 @@ export class TaskBoardComponent implements OnInit {
     console.log(item);
   }
 
-  showModal(): void {
+  showModalForCreate(): void {
     this.isShowModal = true;
   }
 
-  handleCancel(): void { }
+  handleCancel(): void {
+  }
 
-  handleOk(): void { }
+  handleOk(): void {
+  }
 
 }
