@@ -1,6 +1,6 @@
 <nz-content>
   <div style="background: #ECECEC;padding:30px;">
-    <button (click)='showModalForCreate()' nz-button nzType="primary">Create New Todo</button>
+    <button (click)='showModalForCreate()' nz-button nzType="primary">Create New Task</button>
 
     <app-create-task *ngIf='isShowModalForCreate' [projectId]="projectId" (modalEmitter)='isShowModalForCreate=$event'
                      [isShowModal]="isShowModalForCreate"></app-create-task>
