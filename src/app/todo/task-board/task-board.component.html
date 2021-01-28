@@ -12,12 +12,12 @@
         <div class="todo">
           <h2>TODO</h2>
           <div class="content" *ngFor='let todo of projectTasks.do'>
-            <nz-card nzHoverable nzTitle='{{todo.title}}' [nzActions]="[actionEdit, actionEllipsis]">
-              <p>{{todo.comment}} </p>
+            <nz-card nzHoverable nzTitle='{{todo.taskName}}' [nzActions]="[actionEdit, actionEllipsis]">
+              <p>{{todo.taskDescription}} </p>
             </nz-card>
             <ng-template #actionEdit>
 
-              <i nz-icon nzType="edit" (click)='showItem(todo.title)'></i>
+              <i nz-icon nzType="edit" (click)='showItem(todo.taskName)'></i>
             </ng-template>
             <ng-template #actionEllipsis>
               <i nz-icon nzType="ellipsis"></i>
@@ -31,11 +31,11 @@
         <div class="todo">
           <h2>WIP</h2>
           <div class="content" *ngFor='let todo of projectTasks.wip'>
-            <nz-card nzHoverable nzTitle='{{todo.title}}' [nzActions]="[actionEdit, actionEllipsis]">
-              <p>{{todo.comment}} </p>
+            <nz-card nzHoverable nzTitle='{{todo.taskName}}' [nzActions]="[actionEdit, actionEllipsis]">
+              <p>{{todo.taskDescription}} </p>
             </nz-card>
             <ng-template #actionEdit>
-              <i nz-icon nzType="edit" (click)='showItem(todo.title)' ></i>
+              <i nz-icon nzType="edit" (click)='showItem(todo.taskName)' ></i>
             </ng-template>
             <ng-template #actionEllipsis>
               <i nz-icon nzType="ellipsis"></i>
@@ -47,14 +47,14 @@
 
       <div nz-col [nzSpan]="8">
         <div class="todo">
-          <h2>WIP</h2>
+          <h2>DONE</h2>
           <div class="content" *ngFor='let todo of projectTasks.done'>
-            <nz-card nzHoverable nzTitle='{{todo.title}}' [nzActions]="[actionEdit, actionEllipsis]">
-              <p>{{todo.comment}} </p>
+            <nz-card nzHoverable nzTitle='{{todo.taskName}}' [nzActions]="[actionEdit, actionEllipsis]">
+              <p>{{todo.taskDescription}} </p>
             </nz-card>
             <ng-template #actionEdit>
 
-              <i nz-icon nzType="edit" (click)='showItem(todo.title)'  ></i>
+              <i nz-icon nzType="edit" (click)='showItem(todo.taskName)'  ></i>
             </ng-template>
             <ng-template #actionEllipsis>
               <i nz-icon nzType="ellipsis"></i>

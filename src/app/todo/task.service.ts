@@ -22,8 +22,8 @@ export class TaskService {
     return this.fireStore.collection('project').snapshotChanges();
   }
 
-  getTodoList(): Observable<Project[]> {
-    return this.fireStore.collection<Project>('project').valueChanges();
+  getTask(): any {
+    return this.fireStore.collection<TaskModel[]>('task').snapshotChanges();
   }
 
   saveProject(data: Project): void {
@@ -32,9 +32,7 @@ export class TaskService {
   }
 
   saveTodo(data: TaskModel): void {
-    // tslint:disable-next-line:no-debugger
-    debugger;
-    // this.todoList.push(data);
+    console.log(data);
     this.fireStore.collection('task').add(data);
   }
 

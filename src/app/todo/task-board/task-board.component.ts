@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Task} from 'protractor/built/taskScheduler';
+import {TaskService} from '../task.service';
 import {TaskModel} from './model/task.model';
+
 
 @Component({
   selector: 'app-task-board',
@@ -12,35 +13,46 @@ export class TaskBoardComponent implements OnInit {
 
   isShowModal = false;
   projectId = '';
-  projectTasks = {
-    do: [
-      {title: 'DO angular routing', comment: 'do'},
-      {title: 'DO angular RxJS', comment: 'do'},
-      {title: 'DO angular Dialog', comment: 'do'},
-      {title: 'DO angular History', comment: 'do'},
-    ],
-    wip: [
-      {title: 'WIP angular routing', comment: 'work in progress'},
-      {title: 'WIP angular RxJS', comment: 'work in progress'},
-      {title: 'WIP angular Dialog', comment: 'work in progress'},
-      {title: 'WIP angular History', comment: 'work in progress'},
-    ],
-    done: [
-      {title: 'DONE angular routing', comment: 'done'},
-      {title: 'DONE angular RxJS', comment: 'done'},
-      {title: 'DONE angular Dialog', comment: 'done'},
-      {title: 'DONE angular History', comment: 'done'},
-    ]
+  tasks: TaskModel[] = [];
+  projectTasks: Projects = {
+    do: [],
+    wip: [],
+    done: []
   };
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private taskService: TaskService) {
   }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap => {
       this.projectId = (paramMap.get('id') as string);
     });
+
+    this.reload();
   }
+
+  reload(): void {
+    this.taskService.getTask().subscribe((data: TaskModel[]) => {
+      this.tasks = data.map((task: any) => {
+        return {
+          key: task.payload.doc.id,
+          ...task.payload.doc.data()
+        };
+      });
+      // tslint:disable-next-line:no-shadowed-variable
+      this.tasks.map((data: TaskModel) => {
+        if (data.taskStatus === 'wip') {
+          this.projectTasks.wip.push(data);
+        } else if (data.taskStatus === 'done') {
+          this.projectTasks.done.push(data);
+        } else if (data.taskStatus === 'todo') {
+          this.projectTasks.do.push(data);
+        }
+      });
+      console.log(this.projectTasks);
+    });
+  }
+
 
   showItem(item: string): void {
     console.log(item);
@@ -56,4 +68,10 @@ export class TaskBoardComponent implements OnInit {
   handleOk(): void {
   }
 
+}
+
+interface Projects {
+  do: TaskModel[];
+  wip: TaskModel[];
+  done: TaskModel[];
 }

@@ -22,7 +22,7 @@ export class CreateTaskComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private taskService: TaskService) {
     this.validateForm = this.fb.group({
-      taskTitle: ['', [Validators.required]],
+      taskName: ['', [Validators.required]],
       taskDescription: ['', [Validators.required]],
       taskStatus: ['', [Validators.required]]
     });
@@ -38,9 +38,7 @@ export class CreateTaskComponent implements OnInit {
 
   handleOk(): void {
     this.isOkLoading = true;
-    setTimeout(() => {
-      this.handleModalEmitter();
-    }, 3000);
+    this.handleModalEmitter();
   }
 
   handleModalEmitter(): void {
