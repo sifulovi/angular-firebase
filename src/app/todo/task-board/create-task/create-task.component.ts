@@ -38,7 +38,9 @@ export class CreateTaskComponent implements OnInit {
 
   handleOk(): void {
     this.isOkLoading = true;
-    this.handleModalEmitter();
+    setTimeout(() => {
+      this.handleModalEmitter();
+    }, 1000);
   }
 
   handleModalEmitter(): void {
