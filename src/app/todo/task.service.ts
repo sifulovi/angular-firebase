@@ -1,7 +1,8 @@
 import {Observable, of} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {Task} from './task.model';
+import {Project} from './project.model';
 import {AngularFirestore} from '@angular/fire/firestore';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,32 +13,24 @@ export class TaskService {
   }
 
 
-  todoList: Task[] = [
-    {title: 'Angular', description: 'today i am gonna learn Angular'},
-    {title: 'React', description: 'today i am gonna learn React'},
-    {title: 'Vue', description: 'today i am gonna learn Vue'},
-    {title: '.Net', description: 'today i am gonna learn .Net'},
-    {title: 'Express', description: 'today i am gonna learn Express'},
-    {title: 'FireBase', description: 'today i am gonna learn FireBase'},
-  ];
+  todoList: Project[] = [];
 
-  todoList$: Observable<Task[]> = of(this.todoList);
+  todoList$: Observable<Project[]> = of(this.todoList);
 
-  getProjectList(): Observable<Task[]> {
-    return this.fireStore.collection<Task>('project').valueChanges();
+  getProjectList(): any {
+   return this.fireStore.collection('project').snapshotChanges();
   }
 
-
-  getTodoList(): Observable<Task[]> {
-    return this.fireStore.collection<Task>('project').valueChanges();
+  getTodoList(): Observable<Project[]> {
+    return this.fireStore.collection<Project>('project').valueChanges();
   }
 
-  saveTask(data: Task): void {
+  saveProject(data: Project): void {
     this.todoList.push(data);
     this.fireStore.collection('project').add(data);
   }
 
-  saveTodo(data: Task): void {
+  saveTodo(data: Project): void {
     this.todoList.push(data);
     this.fireStore.collection('todo').add(data);
   }

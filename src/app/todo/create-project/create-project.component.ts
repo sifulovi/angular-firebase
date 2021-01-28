@@ -1,7 +1,6 @@
-import { TaskService } from './../task.service';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { Observable, Observer } from 'rxjs';
+import {TaskService} from '../task.service';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-create-todo',
@@ -44,14 +43,14 @@ export class CreateProjectComponent implements OnInit {
 
 
 
-  submitForm(value: { description: string; title: string }): void {
+  submitForm(value: { description: string; title: string; key: string }): void {
     // tslint:disable-next-line: forin
     for (const key in this.validateForm.controls) {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
     console.log(value);
-    this.taskService.saveTask(value);
+    this.taskService.saveProject(value);
     this.handleOk();
   }
 

@@ -1,18 +1,19 @@
 <nz-content>
   <div style="background: #ECECEC;padding:30px;">
     <button (click)='showModal()' nz-button nzType="primary">Create New Project</button>
-    <app-create-todo *ngIf='isShowModal' (modalEmitter)='isShowModal=$event' [isShowModal]="isShowModal"></app-create-todo>
+    <app-create-todo *ngIf='isShowModal' (modalEmitter)='isShowModal=$event'
+                     [isShowModal]="isShowModal"></app-create-todo>
     <nz-divider></nz-divider>
 
-    <div nz-row [nzGutter]=[8,8]>
-      <div *ngFor='let todo of taskList$ | async; index as i' nz-col [nzSpan]="8">
+    <div nz-row [nzGutter]=[8,8] *ngIf="taskList?.length > 0">
+      <div *ngFor='let todo of taskList; ' nz-col [nzSpan]="8">
         <nz-card nzHoverable nzTitle='{{todo.title}}' [nzActions]="[actionEdit, actionEllipsis]">
           <p> {{todo.description}} </p>
         </nz-card>
         <ng-template #actionEdit>
-          <a  [routerLink]="['/project', todo.title + '-' + (i+1)]">
+          <a [routerLink]="['/project', todo.key]">
             <i nz-icon nzType="edit"></i>
-           </a>
+          </a>
 
         </ng-template>
         <ng-template #actionEllipsis>
