@@ -1,10 +1,10 @@
-import { Observable, of } from 'rxjs';
-import { Injectable } from '@angular/core';
-import { Project } from './model/project.model';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
-import { TaskModel } from './task-board/model/task.model';
-import { FunctionCall } from '@angular/compiler';
+import {Observable, of} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Project} from './model/project.model';
+import {AngularFirestore, DocumentChangeAction} from '@angular/fire/firestore';
+import {map} from 'rxjs/operators';
+import {TaskModel} from './task-board/model/task.model';
+import {FunctionCall} from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +33,6 @@ export class ProjectService {
   }
 
   saveTodo(data: TaskModel): void {
-    debugger
     console.log(data);
     this.fireStore.collection('task').add(data);
   }

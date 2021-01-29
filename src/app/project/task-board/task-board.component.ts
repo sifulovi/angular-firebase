@@ -41,7 +41,7 @@ export class TaskBoardComponent implements OnInit {
         };
       });
       for (const task of tasks) {
-        if (task.taskStatus === 'todo') {
+        if (task.taskStatus === 'do') {
           this.projectTasks.do = [...this.projectTasks.do, task];
         } else if (task.taskStatus === 'wip') {
           this.projectTasks.wip = [...this.projectTasks.wip, task];
