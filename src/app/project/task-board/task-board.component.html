@@ -31,7 +31,7 @@
       </div>
 
       <div nz-col [nzSpan]="8">
-        <div class="todo">
+        <div class="wip">
           <h2>WIP</h2>
           <div class="content" *ngFor='let todo of projectTasks.wip'>
             <nz-card nzHoverable nzTitle='{{todo.taskName}}' [nzActions]="[actionEdit, actionEllipsis]">
@@ -53,7 +53,7 @@
       </div>
 
       <div nz-col [nzSpan]="8">
-        <div class="todo">
+        <div class="done">
           <h2>DONE</h2>
           <div class="content" *ngFor='let todo of projectTasks.done'>
             <nz-card nzHoverable nzTitle='{{todo.taskName}}' [nzActions]="[actionEdit, actionEllipsis]">
