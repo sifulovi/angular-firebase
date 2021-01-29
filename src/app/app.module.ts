@@ -15,13 +15,15 @@ import { CommonSharedModule } from './common.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
+import {NotFound404Component} from './common/not-found404/not-found404.component';
 
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    NotFound404Component
   ],
   imports: [
     BrowserModule,
