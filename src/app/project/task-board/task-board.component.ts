@@ -41,7 +41,6 @@ export class TaskBoardComponent implements OnInit {
         };
       });
       for (const task of tasks) {
-        debugger
         if (task.taskStatus === 'todo') {
           this.projectTasks.do = [...this.projectTasks.do, task];
         } else if (task.taskStatus === 'wip') {
@@ -60,7 +59,7 @@ export class TaskBoardComponent implements OnInit {
 
   showModalForEdit(task: TaskModel): void {
     this.isShowModalForEdit = true;
-    this.editTaskData = task;
+    this.editTaskData = Object.assign({}, task);
   }
 
 }

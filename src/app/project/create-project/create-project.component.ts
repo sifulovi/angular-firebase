@@ -13,8 +13,6 @@ export class CreateProjectComponent implements OnInit {
   isOkLoading = false;
   @Output() modalEmitter = new EventEmitter();
   validateForm: FormGroup;
-  selectedValue: null;
-
 
   constructor(private fb: FormBuilder, private taskService: ProjectService) {
     this.validateForm = this.fb.group({
@@ -41,8 +39,6 @@ export class CreateProjectComponent implements OnInit {
     this.modalEmitter.emit(this.isShowModal);
   }
 
-
-
   submitForm(value: { description: string; title: string; key: string }): void {
     // tslint:disable-next-line: forin
     for (const key in this.validateForm.controls) {
@@ -63,6 +59,5 @@ export class CreateProjectComponent implements OnInit {
       this.validateForm.controls[key].updateValueAndValidity();
     }
   }
-
 
 }

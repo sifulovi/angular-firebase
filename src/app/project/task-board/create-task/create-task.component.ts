@@ -49,17 +49,16 @@ export class CreateTaskComponent implements OnInit {
   }
 
 
-  submitForm(value: TaskModel): void {
+  submitForm(modelData: TaskModel): void {
     // tslint:disable-next-line: forin
     for (const key in this.validateForm.controls) {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
     const payload = {
-      ...value,
+      ...modelData,
       projectId: this.projectId,
     };
-    debugger
     console.log(payload);
     this.taskService.saveTodo(payload);
     this.handleOk();
@@ -74,6 +73,5 @@ export class CreateTaskComponent implements OnInit {
       this.validateForm.controls[key].updateValueAndValidity();
     }
   }
-
 
 }
