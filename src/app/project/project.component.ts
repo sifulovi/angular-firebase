@@ -12,6 +12,7 @@ export class ProjectComponent implements OnInit {
 
   isShowModal = false;
   projects: Project[] = [];
+  isDataLoading = true;
 
   constructor(private service: ProjectService) {
   }
@@ -19,6 +20,7 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
     this.service.getProjectList().subscribe((data: any) => {
       this.projects = data.map((project: any) => {
+        this.isDataLoading = false;
         return {
           key: project.payload.doc.id,
           ...project.payload.doc.data()
