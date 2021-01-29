@@ -1,19 +1,19 @@
-import {TaskService} from './task.service';
+import {ProjectService} from './project.service';
 import {Component, OnInit} from '@angular/core';
-import {Project} from './project.model';
+import {Project} from './model/project.model';
 import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-todo',
-  templateUrl: './todo.component.html',
-  styleUrls: ['./todo.component.scss']
+  templateUrl: './project.component.html',
+  styleUrls: ['./project.component.scss']
 })
-export class TodoComponent implements OnInit {
+export class ProjectComponent implements OnInit {
 
   isShowModal = false;
   projects: Project[] = [];
 
-  constructor(private service: TaskService) {
+  constructor(private service: ProjectService) {
 
   }
 

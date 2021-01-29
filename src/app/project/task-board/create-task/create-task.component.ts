@@ -1,28 +1,35 @@
-import {TaskService} from '../task.service';
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ProjectService} from '../../project.service';
+import {TaskModel} from '../model/task.model';
 
 @Component({
-  selector: 'app-create-todo',
-  templateUrl: './create-project.component.html',
-  styleUrls: ['./create-project.component.scss']
+  selector: 'app-create-task',
+  templateUrl: './create-task.component.html',
+  styleUrls: ['./create-task.component.scss']
 })
-export class CreateProjectComponent implements OnInit {
+export class CreateTaskComponent implements OnInit {
 
   @Input() public isShowModal = false;
+  tasks: TaskModel = {projectId: '', taskDescription: '', taskKey: '', taskName: '', taskStatus: ''};
+
+  @Input() public projectId = '';
   isOkLoading = false;
   @Output() modalEmitter = new EventEmitter();
   validateForm: FormGroup;
   selectedValue: null;
 
 
-  constructor(private fb: FormBuilder, private taskService: TaskService) {
+  constructor(private fb: FormBuilder, private taskService: ProjectService) {
     this.validateForm = this.fb.group({
-      title: ['', [Validators.required]],
-      description: ['', [Validators.required]]
+      taskName: ['', [Validators.required]],
+      taskDescription: ['', [Validators.required]],
+      taskStatus: ['', [Validators.required]]
     });
   }
+
   ngOnInit(): void {
+    this.tasks.projectId = this.projectId;
   }
 
   handleCancel(): void {
@@ -42,15 +49,18 @@ export class CreateProjectComponent implements OnInit {
   }
 
 
-
-  submitForm(value: { description: string; title: string; key: string }): void {
+  submitForm(value: TaskModel): void {
     // tslint:disable-next-line: forin
     for (const key in this.validateForm.controls) {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
-    console.log(value);
-    this.taskService.saveProject(value);
+    const payload = {
+      ...value,
+      projectId: this.projectId,
+    };
+    console.log(payload);
+    this.taskService.saveTodo(payload);
     this.handleOk();
   }
 

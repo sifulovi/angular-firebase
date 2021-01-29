@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { TodoRoutingModule } from './todo-routing.module';
-import { TodoComponent } from './todo.component';
+import { ProjectRoutingModule } from './project-routing.module';
+import { ProjectComponent } from './project.component';
 import { CommonSharedModule } from '../common.module';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { TaskBoardComponent } from './task-board/task-board.component';
@@ -12,12 +12,12 @@ import { EditTaskComponent } from './task-board/edit-task/edit-task.component';
 
 
 @NgModule({
-  declarations: [TodoComponent, CreateProjectComponent, TaskBoardComponent, CreateTaskComponent, EditTaskComponent],
+  declarations: [ProjectComponent, CreateProjectComponent, TaskBoardComponent, CreateTaskComponent, EditTaskComponent],
     imports: [
         CommonModule,
-        TodoRoutingModule,
+        ProjectRoutingModule,
         CommonSharedModule,
         FormsModule
     ]
 })
-export class TodoModule { }
+export class ProjectModule { }

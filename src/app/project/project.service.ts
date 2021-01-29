@@ -1,14 +1,15 @@
-import {Observable, of} from 'rxjs';
-import {Injectable} from '@angular/core';
-import {Project} from './project.model';
-import {AngularFirestore} from '@angular/fire/firestore';
-import {map} from 'rxjs/operators';
-import {TaskModel} from './task-board/model/task.model';
+import { Observable, of } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Project } from './model/project.model';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
+import { TaskModel } from './task-board/model/task.model';
+import { FunctionCall } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TaskService {
+export class ProjectService {
 
   constructor(private fireStore: AngularFirestore) {
   }

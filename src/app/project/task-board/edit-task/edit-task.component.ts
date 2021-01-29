@@ -1,26 +1,25 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {TaskService} from '../../task.service';
 import {TaskModel} from '../model/task.model';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ProjectService} from '../../project.service';
 
 @Component({
-  selector: 'app-create-task',
-  templateUrl: './create-task.component.html',
-  styleUrls: ['./create-task.component.scss']
+  selector: 'app-edit-task',
+  templateUrl: './edit-task.component.html',
+  styleUrls: ['./edit-task.component.scss']
 })
-export class CreateTaskComponent implements OnInit {
+export class EditTaskComponent implements OnInit {
 
   @Input() public isShowModal = false;
-  tasks: TaskModel = {projectId: '', taskDescription: '', taskKey: '', taskName: '', taskStatus: ''};
+  @Input() taskData = {} as TaskModel;
 
   @Input() public projectId = '';
   isOkLoading = false;
   @Output() modalEmitter = new EventEmitter();
   validateForm: FormGroup;
-  selectedValue: null;
 
 
-  constructor(private fb: FormBuilder, private taskService: TaskService) {
+  constructor(private fb: FormBuilder, private taskService: ProjectService) {
     this.validateForm = this.fb.group({
       taskName: ['', [Validators.required]],
       taskDescription: ['', [Validators.required]],
@@ -29,7 +28,6 @@ export class CreateTaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.tasks.projectId = this.projectId;
   }
 
   handleCancel(): void {
@@ -57,10 +55,9 @@ export class CreateTaskComponent implements OnInit {
     }
     const payload = {
       ...value,
-      projectId: this.projectId,
+      taskKey: this.taskData.taskKey
     };
-    console.log(payload);
-    this.taskService.saveTodo(payload);
+    this.taskService.updateTodo(payload);
     this.handleOk();
   }
 
@@ -73,6 +70,5 @@ export class CreateTaskComponent implements OnInit {
       this.validateForm.controls[key].updateValueAndValidity();
     }
   }
-
 
 }

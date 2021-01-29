@@ -1,32 +1,27 @@
+import {ProjectService} from '../project.service';
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {TaskModel} from '../model/task.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {TaskService} from '../../task.service';
 
 @Component({
-  selector: 'app-edit-task',
-  templateUrl: './edit-task.component.html',
-  styleUrls: ['./edit-task.component.scss']
+  selector: 'app-create-todo',
+  templateUrl: './create-project.component.html',
+  styleUrls: ['./create-project.component.scss']
 })
-export class EditTaskComponent implements OnInit {
+export class CreateProjectComponent implements OnInit {
 
   @Input() public isShowModal = false;
-  @Input() taskData = {} as TaskModel;
-
-  @Input() public projectId = '';
   isOkLoading = false;
   @Output() modalEmitter = new EventEmitter();
   validateForm: FormGroup;
+  selectedValue: null;
 
 
-  constructor(private fb: FormBuilder, private taskService: TaskService) {
+  constructor(private fb: FormBuilder, private taskService: ProjectService) {
     this.validateForm = this.fb.group({
-      taskName: ['', [Validators.required]],
-      taskDescription: ['', [Validators.required]],
-      taskStatus: ['', [Validators.required]]
+      title: ['', [Validators.required]],
+      description: ['', [Validators.required]]
     });
   }
-
   ngOnInit(): void {
   }
 
@@ -47,17 +42,15 @@ export class EditTaskComponent implements OnInit {
   }
 
 
-  submitForm(value: TaskModel): void {
+
+  submitForm(value: { description: string; title: string; key: string }): void {
     // tslint:disable-next-line: forin
     for (const key in this.validateForm.controls) {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
-    const payload = {
-      ...value,
-      taskKey: this.taskData.taskKey
-    };
-    this.taskService.updateTodo(payload);
+    console.log(value);
+    this.taskService.saveProject(value);
     this.handleOk();
   }
 
@@ -70,5 +63,6 @@ export class EditTaskComponent implements OnInit {
       this.validateForm.controls[key].updateValueAndValidity();
     }
   }
+
 
 }

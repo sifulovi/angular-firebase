@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {TaskService} from '../task.service';
+import {ProjectService} from '../project.service';
 import {TaskModel} from './model/task.model';
+import {TaskResponseModel} from './model/task-response.model';
 
 
 @Component({
@@ -16,13 +17,9 @@ export class TaskBoardComponent implements OnInit {
   projectId = '';
   tasks: TaskModel[] = [];
   editTaskData = {} as TaskModel;
-  projectTasks: Projects = {
-    do: [],
-    wip: [],
-    done: []
-  };
+  projectTasks: TaskResponseModel = {} as TaskResponseModel;
 
-  constructor(private route: ActivatedRoute, private taskService: TaskService) {
+  constructor(private route: ActivatedRoute, private taskService: ProjectService) {
   }
 
   ngOnInit(): void {
@@ -35,29 +32,24 @@ export class TaskBoardComponent implements OnInit {
 
   reload(): void {
     this.taskService.getTask(this.projectId).subscribe((data: TaskModel[]) => {
-      this.tasks = data.map((task: any) => {
+      this.projectTasks = {do: [], wip: [], done: []};
+      const tasks = data.map((task: any) => {
         return {
           taskKey: task.payload.doc.id,
           ...task.payload.doc.data()
         };
       });
-      // tslint:disable-next-line:no-shadowed-variable
-      this.tasks.map((data: TaskModel) => {
-        if (data.taskStatus === 'wip') {
-          this.projectTasks.wip.push(data);
-        } else if (data.taskStatus === 'done') {
-          this.projectTasks.done.push(data);
-        } else if (data.taskStatus === 'todo') {
-          this.projectTasks.do.push(data);
+      for (const task of tasks) {
+        if (task.taskStatus === 'wip') {
+          this.projectTasks.wip = [...this.projectTasks.wip, task];
+        } else if (task.taskStatus === 'project') {
+          this.projectTasks.do = [...this.projectTasks.do, task];
+        } else if (task.taskStatus === 'done') {
+          this.projectTasks.done = [...this.projectTasks.done, task];
         }
-      });
+      }
       console.log(this.projectTasks);
     });
-  }
-
-
-  showItem(item: string): void {
-    console.log(item);
   }
 
   showModalForCreate(): void {
@@ -69,16 +61,4 @@ export class TaskBoardComponent implements OnInit {
     this.editTaskData = task;
   }
 
-  handleCancel(): void {
-  }
-
-  handleOk(): void {
-  }
-
-}
-
-interface Projects {
-  do: TaskModel[];
-  wip: TaskModel[];
-  done: TaskModel[];
 }

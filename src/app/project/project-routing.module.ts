@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TaskBoardComponent } from './task-board/task-board.component';
 
-import { TodoComponent } from './todo.component';
+import { ProjectComponent } from './project.component';
 
 const routes: Routes = [
-  { path: '', component: TodoComponent },
+  { path: '', component: ProjectComponent },
   { path: 'project/:id', component: TaskBoardComponent },
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TodoRoutingModule { }
+export class ProjectRoutingModule { }
