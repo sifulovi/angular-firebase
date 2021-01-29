@@ -17,7 +17,7 @@ export class TaskBoardComponent implements OnInit {
   projectId = '';
   tasks: TaskModel[] = [];
   editTaskData = {} as TaskModel;
-  projectTasks: TaskResponseModel = {} as TaskResponseModel;
+  projectTasks: TaskResponseModel = {do: [], wip: [], done: []};
 
   constructor(private route: ActivatedRoute, private taskService: ProjectService) {
   }
@@ -28,6 +28,7 @@ export class TaskBoardComponent implements OnInit {
     });
 
     this.reload();
+
   }
 
   reload(): void {
@@ -40,10 +41,11 @@ export class TaskBoardComponent implements OnInit {
         };
       });
       for (const task of tasks) {
-        if (task.taskStatus === 'wip') {
-          this.projectTasks.wip = [...this.projectTasks.wip, task];
-        } else if (task.taskStatus === 'project') {
+        debugger
+        if (task.taskStatus === 'todo') {
           this.projectTasks.do = [...this.projectTasks.do, task];
+        } else if (task.taskStatus === 'wip') {
+          this.projectTasks.wip = [...this.projectTasks.wip, task];
         } else if (task.taskStatus === 'done') {
           this.projectTasks.done = [...this.projectTasks.done, task];
         }

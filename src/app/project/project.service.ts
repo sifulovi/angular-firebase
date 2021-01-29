@@ -33,6 +33,7 @@ export class ProjectService {
   }
 
   saveTodo(data: TaskModel): void {
+    debugger
     console.log(data);
     this.fireStore.collection('task').add(data);
   }

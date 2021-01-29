@@ -14,11 +14,9 @@ export class ProjectComponent implements OnInit {
   projects: Project[] = [];
 
   constructor(private service: ProjectService) {
-
   }
 
   ngOnInit(): void {
-    this.projects = this.service.getProjectList();
     this.service.getProjectList().subscribe((data: any) => {
       this.projects = data.map((project: any) => {
         return {
@@ -26,7 +24,6 @@ export class ProjectComponent implements OnInit {
           ...project.payload.doc.data()
         };
       });
-      console.log(this.projects);
     });
   }
 

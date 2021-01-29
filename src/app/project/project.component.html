@@ -5,7 +5,7 @@
                      [isShowModal]="isShowModal"></app-create-todo>
     <nz-divider></nz-divider>
 
-    <div nz-row [nzGutter]=[8,8] *ngIf="projects">
+    <div nz-row [nzGutter]=[8,8] *ngIf="projects.length > 0 else noData">
       <div *ngFor='let project of projects; ' nz-col [nzSpan]="8">
         <nz-card nzHoverable nzTitle='{{project.title}}' [nzActions]="[actionEdit, actionEllipsis]">
           <p> {{project.description}} </p>
@@ -22,6 +22,11 @@
       </div>
 
     </div>
+
+    <ng-template #noData>
+      <nz-empty nzNotFoundImage="simple" nzNotFoundContent="No Project is Created Yet.">
+      </nz-empty>
+    </ng-template>
   </div>
 
 </nz-content>

@@ -9,7 +9,7 @@
 
     <nz-divider></nz-divider>
 
-    <div nz-row [nzGutter]="[16, 16]" *ngIf="projectTasks">
+    <div nz-row [nzGutter]="[16, 16]">
 
       <div nz-col [nzSpan]="8">
         <div class="todo">
@@ -45,6 +45,10 @@
             </ng-template>
             <br>
           </div>
+        </div>
+
+        <div *ngIf="(!projectTasks.do.length && !projectTasks.wip.length &&  !projectTasks.done.length)">
+          <nz-empty></nz-empty>
         </div>
       </div>
 
