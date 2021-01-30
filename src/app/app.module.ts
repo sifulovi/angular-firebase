@@ -15,7 +15,8 @@ import { CommonSharedModule } from './common.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
-import {NotFound404Component} from './common/not-found404/not-found404.component';
+import { NotFound404Component } from './common/not-found404/not-found404.component';
+import { NotifyComponent } from './common/notify/notify.component';
 
 registerLocaleData(en);
 
@@ -25,7 +26,7 @@ registerLocaleData(en);
     HeaderComponent,
     NotFound404Component
   ],
-  imports: [
+  imports     : [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -38,4 +39,4 @@ registerLocaleData(en);
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

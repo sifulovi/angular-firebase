@@ -60,7 +60,7 @@ export class CreateTaskComponent implements OnInit {
       projectId: this.projectId,
     };
     console.log(payload);
-    this.taskService.saveTodo(payload);
+    this.taskService.saveTask(payload);
     this.handleOk();
   }
 

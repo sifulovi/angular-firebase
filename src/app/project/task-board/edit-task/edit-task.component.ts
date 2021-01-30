@@ -1,17 +1,23 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {TaskModel} from '../model/task.model';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ProjectService} from '../../project.service';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { TaskModel } from '../model/task.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ProjectService } from '../../project.service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { MessageObject } from '../../../common/model/message-object.model';
+import { NOTIFY_MESSAGE } from '../../../common/constant/notify-message';
 
 @Component({
-  selector: 'app-edit-task',
+  selector   : 'app-edit-task',
   templateUrl: './edit-task.component.html',
-  styleUrls: ['./edit-task.component.scss']
+  styleUrls  : ['./edit-task.component.scss']
 })
 export class EditTaskComponent implements OnInit {
 
   @Input() public isShowModal = false;
-  @Input() taskData = {} as TaskModel;
+  @Input() @Output() taskData = {} as TaskModel;
+
+  @Output()
+  messageObject = {} as MessageObject;
 
   @Input() public projectId = '';
   isOkLoading = false;
@@ -19,11 +25,13 @@ export class EditTaskComponent implements OnInit {
   validateForm: FormGroup;
 
 
-  constructor(private fb: FormBuilder, private taskService: ProjectService) {
+  constructor(private fb: FormBuilder,
+              private taskService: ProjectService,
+              private notification: NzNotificationService) {
     this.validateForm = this.fb.group({
-      taskName: ['', [Validators.required]],
+      taskName       : ['', [Validators.required]],
       taskDescription: ['', [Validators.required]],
-      taskStatus: ['', [Validators.required]]
+      taskStatus     : ['', [Validators.required]]
     });
   }
 
@@ -47,17 +55,23 @@ export class EditTaskComponent implements OnInit {
   }
 
 
-  submitForm(value: TaskModel): void {
+  update(taskModel: TaskModel, template: TemplateRef<{}>): void {
+    this.messageObject = NOTIFY_MESSAGE.TASK.EDIT;
     // tslint:disable-next-line: forin
     for (const key in this.validateForm.controls) {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
     const payload = {
-      ...value,
+      ...taskModel,
       taskKey: this.taskData.taskKey
     };
-    this.taskService.updateTodo(payload);
+    this.taskService.updateTask(payload)
+        .then(() => {
+          this.notification.template(template);
+          this.isShowModal = false;
+        })
+        .catch();
     this.handleOk();
   }
 
@@ -71,4 +85,17 @@ export class EditTaskComponent implements OnInit {
     }
   }
 
+  delete(template: TemplateRef<{}>): void {
+    this.messageObject = NOTIFY_MESSAGE.TASK.DELETE;
+    this.taskService.deleteTask(this.taskData.taskKey)
+        .then(() => {
+          this.notification.template(template);
+          this.isShowModal = false;
+        })
+        .catch();
+  }
+
+  cancel(): void {
+
+  }
 }
