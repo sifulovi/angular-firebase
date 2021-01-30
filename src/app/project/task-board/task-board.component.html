@@ -1,7 +1,11 @@
 <nz-content>
-  <div style="background: #ECECEC;padding:30px;">
+  <div style="background: #ECECEC; padding:30px;">
+    <nz-button-group>
+    <button style="margin-right: 5px" nz-button nzType="primary"  [routerLink]="['/']">
+      <i nz-icon nzType="left" nzTheme="outline"></i>
+    </button>
     <button (click)='showModalForCreate()' nz-button nzType="primary">Create New Task</button>
-
+    </nz-button-group>
     <app-create-task *ngIf='isShowModalForCreate' [projectId]="projectId" (modalEmitter)='isShowModalForCreate=$event'
                      [isShowModal]="isShowModalForCreate"></app-create-task>
     <app-edit-task *ngIf='isShowModalForEdit' [taskData]="editTaskData" (modalEmitter)='isShowModalForEdit=$event'
