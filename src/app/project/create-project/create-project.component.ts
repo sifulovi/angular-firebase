@@ -1,11 +1,14 @@
-import {ProjectService} from '../project.service';
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { ProjectService } from '../project.service';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NOTIFY_MESSAGE } from '../../common/constant/notify-message';
+import { MessageObject } from '../../common/model/message-object.model';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
-  selector: 'app-create-todo',
+  selector   : 'app-create-todo',
   templateUrl: './create-project.component.html',
-  styleUrls: ['./create-project.component.scss']
+  styleUrls  : ['./create-project.component.scss']
 })
 export class CreateProjectComponent implements OnInit {
 
@@ -13,13 +16,18 @@ export class CreateProjectComponent implements OnInit {
   isOkLoading = false;
   @Output() modalEmitter = new EventEmitter();
   validateForm: FormGroup;
+  @Output()
+  messageObject = {} as MessageObject;
 
-  constructor(private fb: FormBuilder, private taskService: ProjectService) {
+  constructor(private fb: FormBuilder,
+              private taskService: ProjectService,
+              private notification: NzNotificationService) {
     this.validateForm = this.fb.group({
-      title: ['', [Validators.required]],
+      title      : ['', [Validators.required]],
       description: ['', [Validators.required]]
     });
   }
+
   ngOnInit(): void {
   }
 
@@ -39,15 +47,20 @@ export class CreateProjectComponent implements OnInit {
     this.modalEmitter.emit(this.isShowModal);
   }
 
-  submitForm(value: { description: string; title: string; key: string }): void {
+  submitForm(value: { description: string; title: string; key: string }, template: TemplateRef<{}>): void {
     // tslint:disable-next-line: forin
     for (const key in this.validateForm.controls) {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
     console.log(value);
-    this.taskService.saveProject(value);
-    this.handleOk();
+    this.taskService.saveProject(value)
+        .then(() => {
+          this.messageObject = NOTIFY_MESSAGE.PROJECT.CREATED;
+          this.notification.template(template);
+          this.handleOk();
+        })
+        .catch();
   }
 
   resetForm(e: MouseEvent): void {

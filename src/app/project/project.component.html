@@ -11,17 +11,29 @@
           <p> {{project.description}} </p>
         </nz-card>
         <ng-template #actionEdit>
-          <a [routerLink]="['/project', project.key]">
-            <i nz-icon nzType="edit"></i>
-          </a>
+          <button nz-button nzType="link" [routerLink]="['/project', project.key]">
+            <i nz-icon nzType="edit" nzTheme="fill"></i>
+          </button>
 
         </ng-template>
         <ng-template #actionEllipsis>
-          <i nz-icon nzType="ellipsis"></i>
+          <button
+            nz-button
+            nzDanger
+            nz-popconfirm
+            nzPopconfirmTitle="Are you sure delete this Project?"
+            nzPopconfirmPlacement="bottom"
+            (nzOnConfirm)="delete(project.key,notify)"
+            nzType="link">
+            <i nz-icon nzType="delete" nzTheme="fill"></i>
+          </button>
         </ng-template>
       </div>
 
     </div>
+    <ng-template #notify>
+      <app-notify [messageObj]="messageObject"></app-notify>
+    </ng-template>
 
     <ng-template #noData>
       <div *ngIf="isDataLoading" class="example">

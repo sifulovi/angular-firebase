@@ -1,4 +1,4 @@
-  <nz-modal [(nzVisible)]="isShowModal" nzTitle="Add a Task" (nzOnCancel)="handleCancel()">
+  <nz-modal [(nzVisible)]="isShowModal" nzTitle="Add a Project" (nzOnCancel)="handleCancel()">
     <div *nzModalContent>
       <form nz-form [formGroup]="validateForm">
 
@@ -18,7 +18,10 @@
       </form>
     </div>
     <div *nzModalFooter>
-      <button nz-button nzType="primary" [nzLoading]="isOkLoading" (click)="submitForm(validateForm.value)" [disabled]="!validateForm.valid">Submit</button>
+      <button nz-button nzType="primary" [nzLoading]="isOkLoading" (click)="submitForm(validateForm.value, notify)" [disabled]="!validateForm.valid">Submit</button>
       <button nz-button (click)="resetForm($event)">Reset</button>
     </div>
   </nz-modal>
+  <ng-template #notify>
+    <app-notify [messageObj]="messageObject"></app-notify>
+  </ng-template>

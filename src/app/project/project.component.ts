@@ -1,12 +1,15 @@
-import {ProjectService} from './project.service';
-import {Component, OnInit} from '@angular/core';
-import {Project} from './model/project.model';
-import {Observable} from 'rxjs';
+import { ProjectService } from './project.service';
+import { Component, OnInit, Output, TemplateRef } from '@angular/core';
+import { Project } from './model/project.model';
+import { Observable } from 'rxjs';
+import { MessageObject } from '../common/model/message-object.model';
+import { NOTIFY_MESSAGE } from '../common/constant/notify-message';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
-  selector: 'app-todo',
+  selector   : 'app-todo',
   templateUrl: './project.component.html',
-  styleUrls: ['./project.component.scss']
+  styleUrls  : ['./project.component.scss']
 })
 export class ProjectComponent implements OnInit {
 
@@ -14,11 +17,15 @@ export class ProjectComponent implements OnInit {
   projects: Project[] = [];
   isDataLoading = true;
 
-  constructor(private service: ProjectService) {
+  @Output()
+  messageObject = {} as MessageObject;
+
+  constructor(private projectService: ProjectService,
+              private notification: NzNotificationService) {
   }
 
   ngOnInit(): void {
-    this.service.getProjectList().subscribe((data: any) => {
+    this.projectService.getProjectList().subscribe((data: any) => {
       this.projects = data.map((project: any) => {
         this.isDataLoading = false;
         return {
@@ -39,4 +46,17 @@ export class ProjectComponent implements OnInit {
   handleOk(): void {
   }
 
+  delete(projectId: string, template: TemplateRef<{}>): void {
+    this.projectService.deleteProject(projectId)
+        .then(() => {
+          this.messageObject = NOTIFY_MESSAGE.PROJECT.DELETE;
+          this.notification.template(template);
+          this.handleOk();
+        })
+        .catch();
+  }
+
+  cancel(): void {
+
+  }
 }
