@@ -17,6 +17,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { NotFound404Component } from './common/not-found404/not-found404.component';
 import { NotifyComponent } from './common/notify/notify.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 registerLocaleData(en);
 
@@ -34,7 +35,8 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     CommonSharedModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
