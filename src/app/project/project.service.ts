@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Project } from './model/project.model';
-import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentChangeAction, DocumentReference } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { TaskModel } from './task-board/model/task.model';
 import { FunctionCall } from '@angular/compiler';
@@ -32,9 +32,8 @@ export class ProjectService {
     this.fireStore.collection('project').add(data);
   }
 
-  saveTask(data: TaskModel): void {
-    console.log(data);
-    this.fireStore.collection('task').add(data);
+  saveTask(data: TaskModel): Promise<DocumentReference<unknown>> {
+    return this.fireStore.collection('task').add(data);
   }
 
   updateTask(data: TaskModel): Promise<void> {

@@ -1,30 +1,39 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ProjectService} from '../../project.service';
-import {TaskModel} from '../model/task.model';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ProjectService } from '../../project.service';
+import { TaskModel } from '../model/task.model';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { MessageObject } from '../../../common/model/message-object.model';
+import { NOTIFY_MESSAGE } from '../../../common/constant/notify-message';
 
 @Component({
-  selector: 'app-create-task',
+  selector   : 'app-create-task',
   templateUrl: './create-task.component.html',
-  styleUrls: ['./create-task.component.scss']
+  styleUrls  : ['./create-task.component.scss']
 })
 export class CreateTaskComponent implements OnInit {
 
   @Input() public isShowModal = false;
   tasks: TaskModel = {projectId: '', taskDescription: '', taskKey: '', taskName: '', taskStatus: ''};
 
-  @Input() public projectId = '';
+  @Input()
+  public projectId = '';
   isOkLoading = false;
-  @Output() modalEmitter = new EventEmitter();
   validateForm: FormGroup;
   selectedValue: null;
 
+  @Output()
+  modalEmitter = new EventEmitter();
+  @Output()
+  messageObject = {} as MessageObject;
 
-  constructor(private fb: FormBuilder, private taskService: ProjectService) {
+  constructor(private fb: FormBuilder,
+              private taskService: ProjectService,
+              private notification: NzNotificationService) {
     this.validateForm = this.fb.group({
-      taskName: ['', [Validators.required]],
+      taskName       : ['', [Validators.required]],
       taskDescription: ['', [Validators.required]],
-      taskStatus: ['', [Validators.required]]
+      taskStatus     : ['', [Validators.required]]
     });
   }
 
@@ -49,7 +58,7 @@ export class CreateTaskComponent implements OnInit {
   }
 
 
-  submitForm(modelData: TaskModel): void {
+  save(modelData: TaskModel, template: TemplateRef<{}>): void {
     // tslint:disable-next-line: forin
     for (const key in this.validateForm.controls) {
       this.validateForm.controls[key].markAsDirty();
@@ -59,8 +68,12 @@ export class CreateTaskComponent implements OnInit {
       ...modelData,
       projectId: this.projectId,
     };
-    console.log(payload);
-    this.taskService.saveTask(payload);
+    this.taskService.saveTask(payload).then(() => {
+      this.messageObject = NOTIFY_MESSAGE.TASK.CREATED;
+      this.notification.template(template);
+      this.isShowModal = false;
+    })
+        .catch();
     this.handleOk();
   }
 

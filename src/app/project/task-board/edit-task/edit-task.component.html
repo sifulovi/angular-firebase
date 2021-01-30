@@ -32,16 +32,22 @@
   </div>
 
   <ng-template #notify>
-    <app-notify [messageObj]="messageObject" ></app-notify>
+    <app-notify [messageObj]="messageObject"></app-notify>
   </ng-template>
   <div *nzModalFooter style="display: flex;justify-content: space-between">
-    <button nz-button nzDanger nz-popconfirm
+    <button [nzLoading]="isOkLoading"
+            nz-button
+            nzDanger
+            nz-popconfirm
             nzPopconfirmTitle="Are you sure delete this task?"
             nzPopconfirmPlacement="bottom"
             (nzOnConfirm)="delete(notify)"
-            (nzOnCancel)="cancel()">Delete <i nz-icon nzType="delete" nzTheme="fill"></i></button>
+            (nzOnCancel)="cancel()"
+    >
+      Delete <i nz-icon nzType="delete" nzTheme="fill"></i>
+    </button>
     <div class="">
-      <button nz-button nzType="primary" [nzLoading]="isOkLoading" (click)="update(validateForm.value, notify)"
+      <button nz-button nzType="primary"  (click)="update(validateForm.value, notify)"
               [disabled]="!validateForm.valid">Submit
       </button>
       <button nz-button (click)="resetForm($event)">Reset</button>

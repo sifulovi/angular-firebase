@@ -69,10 +69,9 @@ export class EditTaskComponent implements OnInit {
     this.taskService.updateTask(payload)
         .then(() => {
           this.notification.template(template);
-          this.isShowModal = false;
+          this.handleOk();
         })
         .catch();
-    this.handleOk();
   }
 
   resetForm(e: MouseEvent): void {
@@ -90,7 +89,7 @@ export class EditTaskComponent implements OnInit {
     this.taskService.deleteTask(this.taskData.taskKey)
         .then(() => {
           this.notification.template(template);
-          this.isShowModal = false;
+          this.handleOk();
         })
         .catch();
   }
