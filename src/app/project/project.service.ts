@@ -39,19 +39,24 @@ export class ProjectService {
     return this.fireStore.collection('task').doc(taskKey).delete();
   }
 
-  deleteProject(projectKey: string): Promise<void> {
-    this.deleteAllTaskByProjectId(projectKey);
+  async deleteProject(projectKey: string): Promise<void> {
+    await this.deleteAllTaskByProjectId(projectKey);
     return this.fireStore.collection('project').doc(projectKey).delete();
   }
 
-  deleteAllTaskByProjectId(projectKey: string): void {
-    this.fireStore.collection('task', (ref) => ref.where('projectId', '==', projectKey)).snapshotChanges().pipe(
-      map(actions => actions.map(projectDoc => {
-        const id = projectDoc.payload.doc.id;
-        this.fireStore.collection('task').doc(id).delete()
-            .then()
-            .catch(() => {console.log('err'); });
-      }))
+  async deleteAllTaskByProjectId(projectKey: string): Promise<void> {
+    await this.fireStore.collection('task', (ref) => ref.where('projectId', '==', projectKey)).snapshotChanges().subscribe(
+      (data: any) => {
+        data.map((project: any) => {
+          const id = project.payload.doc.id;
+          this.fireStore.collection('task').doc(id).delete()
+              .then()
+              .catch(() => {console.log('err'); });
+        });
+      },
+      error => {
+        console.log('err1');
+      }
     );
   }
 
