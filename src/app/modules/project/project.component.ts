@@ -2,8 +2,8 @@ import { ProjectService } from './project.service';
 import { Component, OnInit, Output, TemplateRef } from '@angular/core';
 import { Project } from './model/project.model';
 import { Observable } from 'rxjs';
-import { MessageObject } from '../common/model/message-object.model';
-import { NOTIFY_MESSAGE } from '../common/constant/notify-message';
+import { MessageObject } from '../../component/common/notify/model/message-object.model';
+import { NOTIFY_MESSAGE } from '../../constant/notify-message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({

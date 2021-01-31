@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MessageObject } from '../model/message-object.model';
+import { MessageObject } from './model/message-object.model';
 
 @Component({
   selector   : 'app-notify',

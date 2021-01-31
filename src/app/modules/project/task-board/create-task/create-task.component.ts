@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../project.service';
 import { TaskModel } from '../model/task.model';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { MessageObject } from '../../../common/model/message-object.model';
-import { NOTIFY_MESSAGE } from '../../../common/constant/notify-message';
+import { MessageObject } from '../../../../component/common/notify/model/message-object.model';
+import { NOTIFY_MESSAGE } from '../../../../constant/notify-message';
 
 @Component({
   selector   : 'app-create-task',

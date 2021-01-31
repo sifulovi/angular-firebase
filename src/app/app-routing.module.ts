@@ -1,10 +1,10 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {NotFound404Component} from './common/not-found404/not-found404.component';
+import {NotFound404Component} from './component/common/not-found404/not-found404.component';
 
 const routes: Routes = [
   {
-    path: '', loadChildren: () => import('./project/project.module').then(m => m.ProjectModule)
+    path: '', loadChildren: () => import('./modules/project/project.module').then(m => m.ProjectModule)
   },
   {
     path: '**',

@@ -10,13 +10,13 @@ import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './component/common/header/header.component';
 import { CommonSharedModule } from './common.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
-import { NotFound404Component } from './common/not-found404/not-found404.component';
-import { NotifyComponent } from './common/notify/notify.component';
+import { NotFound404Component } from './component/common/not-found404/not-found404.component';
+import { NotifyComponent } from './component/common/notify/notify.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 registerLocaleData(en);
