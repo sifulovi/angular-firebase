@@ -7,13 +7,21 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ChartType } from 'chart.js';
 import { Label, MultiDataSet } from 'ng2-charts';
 import { ApexChart, ApexNonAxisChartSeries, ApexResponsive, ChartComponent } from 'ng-apexcharts';
+import { TaskModel } from './task-board/model/task.model';
 
 export type ChartOptions = {
-  series: ApexNonAxisChartSeries;
+  series: ApexNonAxisChartSeries[];
   chart: ApexChart;
   responsive: ApexResponsive[];
   labels: any;
 };
+
+interface XYX {
+  series: ApexNonAxisChartSeries[];
+  chart: ApexChart;
+  responsive: ApexResponsive[];
+  labels: any;
+}
 
 @Component({
   selector   : 'app-todo',
@@ -38,43 +46,70 @@ export class ProjectComponent implements OnInit {
 
 
   @ViewChild('chart') chart: ChartComponent | undefined;
-  public chartOptions: Partial<ChartOptions> | undefined;
+  chartOptions: Partial<ChartOptions> | XYX = {
+    chart     : {
+      type: 'donut'
+    },
+    series    : [[100, 0, 0]],
+    labels    : ['Empty'],
+    responsive: []
+  };
 
   constructor(private projectService: ProjectService,
               private notification: NzNotificationService) {
   }
 
   ngOnInit(): void {
-    this.chartOptions = {
-      series    : [44, 55, 13],
-      chart     : {
-        type: 'donut'
-      },
-      labels    : ['Todo', 'WIP', 'Done'],
-      responsive: [
-        {
-          breakpoint: 480,
-          options   : {
-            chart : {
-              width: 200
-            },
-            legend: {
-              position: 'bottom'
-            }
-          }
-        }
-      ]
-    };
 
-
+    let budgie: any = [];
     this.projectService.getProjectList().subscribe((data: any) => {
       this.projects = data.map((project: any) => {
         this.isDataLoading = false;
+
+
+        this.projectService.getTask(project.payload.doc.id).subscribe((taskModels: TaskModel[]) => {
+          // @ts-ignore
+          const tasks = taskModels.map((task: any) => {
+            return {
+              taskKey: task.payload.doc.id,
+              ...task.payload.doc.data()
+            };
+          });
+
+          const wipCount = tasks.filter((a: any) => a.taskStatus === 'wip');
+          const doneCount = tasks.filter((a: any) => a.taskStatus === 'done');
+          const todoCount = tasks.filter((a: any) => a.taskStatus === 'do');
+          // @ts-ignore
+          budgie = [...budgie, [todoCount.length, wipCount.length, doneCount.length]];
+          this.chartOptions = {
+            series    : [...budgie, budgie],
+            chart     : {
+              type: 'donut'
+            },
+            labels    : ['Todo', 'WIP', 'Done'],
+            responsive: [
+              {
+                breakpoint: 480,
+                options   : {
+                  chart : {
+                    width: 200
+                  },
+                  legend: {
+                    position: 'bottom'
+                  }
+                }
+              }
+            ]
+          };
+        });
+
         return {
           key: project.payload.doc.id,
           ...project.payload.doc.data()
         };
       });
+
+
     });
   }
 

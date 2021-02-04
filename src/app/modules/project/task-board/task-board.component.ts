@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {ProjectService} from '../project.service';
-import {TaskModel} from './model/task.model';
-import {TaskResponseModel} from './model/task-response.model';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ProjectService } from '../project.service';
+import { TaskModel } from './model/task.model';
+import { TaskResponseModel } from './model/task-response.model';
 
 
 @Component({
-  selector: 'app-task-board',
+  selector   : 'app-task-board',
   templateUrl: './task-board.component.html',
-  styleUrls: ['./task-board.component.scss']
+  styleUrls  : ['./task-board.component.scss']
 })
 export class TaskBoardComponent implements OnInit {
 
@@ -40,13 +40,25 @@ export class TaskBoardComponent implements OnInit {
           ...task.payload.doc.data()
         };
       });
+
+      const wipcount = tasks.filter((a: any) => a.taskStatus === 'wip');
+      const donecount = tasks.filter((a: any) => a.taskStatus === 'done');
+      const todocount = tasks.filter((a: any) => a.taskStatus === 'do');
+
+
       for (const task of tasks) {
         if (task.taskStatus === 'do') {
           this.projectTasks.do = [...this.projectTasks.do, task];
-        } else if (task.taskStatus === 'wip') {
-          this.projectTasks.wip = [...this.projectTasks.wip, task];
-        } else if (task.taskStatus === 'done') {
-          this.projectTasks.done = [...this.projectTasks.done, task];
+        }
+        else {
+          if (task.taskStatus === 'wip') {
+            this.projectTasks.wip = [...this.projectTasks.wip, task];
+          }
+          else {
+            if (task.taskStatus === 'done') {
+              this.projectTasks.done = [...this.projectTasks.done, task];
+            }
+          }
         }
       }
       console.log(this.projectTasks);
