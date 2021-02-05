@@ -38,21 +38,26 @@ export class ProjectComponent implements OnInit {
   messageObject = {} as MessageObject;
 
 
-  public doughnutChartLabels: Label[] = ['Todo', 'WIP', 'Done'];
-  public doughnutChartData: MultiDataSet = [
-    [250, 130, 70],
-  ];
-  public doughnutChartType: ChartType = 'doughnut';
-
-
   @ViewChild('chart') chart: ChartComponent | undefined;
   chartOptions: Partial<ChartOptions> | XYX = {
     chart     : {
       type: 'donut'
     },
-    series    : [[100, 0, 0]],
+    series    : [[0]],
     labels    : ['Empty'],
-    responsive: []
+    responsive: [
+      {
+        breakpoint: 480,
+        options   : {
+          chart : {
+            width: 200
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }
+    ]
   };
 
   constructor(private projectService: ProjectService,
@@ -62,13 +67,13 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
 
     let budgie: any = [];
+    this.chartOptions.series = [];
     this.projectService.getProjectList().subscribe((data: any) => {
       this.projects = data.map((project: any) => {
         this.isDataLoading = false;
 
 
         this.projectService.getTask(project.payload.doc.id).subscribe((taskModels: TaskModel[]) => {
-          // @ts-ignore
           const tasks = taskModels.map((task: any) => {
             return {
               taskKey: task.payload.doc.id,
@@ -79,10 +84,10 @@ export class ProjectComponent implements OnInit {
           const wipCount = tasks.filter((a: any) => a.taskStatus === 'wip');
           const doneCount = tasks.filter((a: any) => a.taskStatus === 'done');
           const todoCount = tasks.filter((a: any) => a.taskStatus === 'do');
-          // @ts-ignore
           budgie = [...budgie, [todoCount.length, wipCount.length, doneCount.length]];
+          console.log('bugie', budgie);
           this.chartOptions = {
-            series    : [...budgie, budgie],
+            series    : [...budgie],
             chart     : {
               type: 'donut'
             },
