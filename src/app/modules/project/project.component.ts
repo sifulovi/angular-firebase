@@ -71,9 +71,8 @@ export class ProjectComponent implements OnInit {
     this.projectService.getProjectList().subscribe((data: any) => {
       this.projects = data.map((project: any) => {
         this.isDataLoading = false;
-
-
         this.projectService.getTask(project.payload.doc.id).subscribe((taskModels: TaskModel[]) => {
+          this.chartOptions.series = [];
           const tasks = taskModels.map((task: any) => {
             return {
               taskKey: task.payload.doc.id,
