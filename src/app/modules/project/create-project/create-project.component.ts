@@ -37,9 +37,7 @@ export class CreateProjectComponent implements OnInit {
 
   handleOk(): void {
     this.isOkLoading = true;
-    setTimeout(() => {
-      this.handleModalEmitter();
-    }, 1000);
+    this.handleModalEmitter();
   }
 
   handleModalEmitter(): void {

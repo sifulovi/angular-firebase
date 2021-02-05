@@ -65,10 +65,14 @@ export class ProjectComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.reload();
+  }
 
-    let budgie: any = [];
-    this.chartOptions.series = [];
+  reload(): void {
     this.projectService.getProjectList().subscribe((data: any) => {
+      this.projects = [];
+      let budgie: any = [];
+      this.chartOptions.series = [];
       this.projects = data.map((project: any) => {
         this.isDataLoading = false;
         this.projectService.getTask(project.payload.doc.id).subscribe((taskModels: TaskModel[]) => {
@@ -125,6 +129,7 @@ export class ProjectComponent implements OnInit {
   }
 
   handleOk(): void {
+    // this.reload();
   }
 
   delete(projectId: string, template: TemplateRef<{}>): void {
