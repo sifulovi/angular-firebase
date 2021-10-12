@@ -1,13 +1,13 @@
 <div class="site-page-header-ghost-wrapper">
-  <nz-page-header  [nzGhost]="false">
-    <nz-page-header-title>
+  <nz-page-header [nzGhost]="false">
+    <nz-page-header-title [routerLink]="['/dashboard']" class="cursor">
       <i nz-icon nzType="cluster" nzTheme="outline"></i>
-      MCM Project Management</nz-page-header-title>
+      MCM Project Management
+    </nz-page-header-title>
     <nz-page-header-subtitle>A Marvelous project management</nz-page-header-subtitle>
     <nz-page-header-extra>
-      <button nz-button>Operation</button>
-      <button nz-button>Operation</button>
-      <button nz-button nzType="primary">Primary</button>
+      <button nz-button>About</button>
+      <button nz-button nzType="primary">Contact Us</button>
     </nz-page-header-extra>
   </nz-page-header>
 </div>

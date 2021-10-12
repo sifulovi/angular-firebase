@@ -2,3 +2,12 @@
   background: #7dbcea;
   color: #fff;
 }
+.cursor {
+ cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  nz-page-header-subtitle {
+    display: none;
+  }
+}
