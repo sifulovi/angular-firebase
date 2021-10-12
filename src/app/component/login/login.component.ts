@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { LoginService } from './service/login.service';
+import {Component, OnInit} from '@angular/core';
+import {LoginService} from './service/login.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
-  selector   : 'app-login',
+  selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls  : ['./login.component.scss']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
@@ -18,9 +19,11 @@ export class LoginComponent implements OnInit {
         this.validateForm.controls[i].updateValueAndValidity();
       }
     }
+    this._router.navigateByUrl('dashboard');
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private _router: Router) {
+  }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
