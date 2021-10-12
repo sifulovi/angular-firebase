@@ -1,0 +1,35 @@
+
+.inner-box {
+  background: #0092ff;
+  padding: 8px 0;
+
+}
+
+.content-center {
+  margin: auto;
+  width: 95%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.login-form-margin {
+  margin-bottom: 16px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  .project-image {
+    display: none;
+  }
+}
