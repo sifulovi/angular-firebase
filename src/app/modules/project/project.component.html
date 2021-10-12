@@ -6,7 +6,7 @@
     <nz-divider></nz-divider>
 
     <div nz-row [nzGutter]=[8,8] *ngIf="projects.length > 0 else noData">
-      <div *ngFor='let project of projects; let i = index' nz-col [nzSpan]="8">
+      <div *ngFor='let project of projects; let i = index' nz-col nzSm="12" nzXs="24" nzMd="12" nzLg="8" >
         <nz-card nzHoverable nzTitle='{{project.title}}' [nzActions]="[actionEdit, actionEllipsis]">
           <p> {{project.description}} </p>
 
