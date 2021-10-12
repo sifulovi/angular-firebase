@@ -1,5 +1,5 @@
 <nz-content>
-  <div style="background: #ECECEC;padding:30px;">
+  <div style="padding:30px;">
     <button (click)='showModal()' nz-button nzType="primary">Create New Project</button>
     <app-create-todo *ngIf='isShowModal' (modalEmitter)='isShowModal=$event'
                      [isShowModal]="isShowModal"></app-create-todo>

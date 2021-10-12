@@ -1,10 +1,10 @@
 <nz-content>
-  <div style="background: #ECECEC; padding:30px;">
+  <div style="padding:30px;">
     <nz-button-group>
-    <button style="margin-right: 5px" nz-button nzType="primary"  [routerLink]="['/']">
-      <i nz-icon nzType="left" nzTheme="outline"></i>
-    </button>
-    <button (click)='showModalForCreate()' nz-button nzType="primary">Create New Task</button>
+      <button style="margin-right: 5px" nz-button nzType="primary" [routerLink]="['/']">
+        <i nz-icon nzType="left" nzTheme="outline"></i>
+      </button>
+      <button (click)='showModalForCreate()' nz-button nzType="primary">Create New Task</button>
     </nz-button-group>
     <app-create-task *ngIf='isShowModalForCreate' [projectId]="projectId" (modalEmitter)='isShowModalForCreate=$event'
                      [isShowModal]="isShowModalForCreate"></app-create-task>
@@ -15,65 +15,65 @@
 
     <div nz-row [nzGutter]="[16, 16]">
 
-      <div nz-col [nzSpan]="8">
-        <div class="todo">
-          <h2>TODO</h2>
-          <div class="content" *ngFor='let todo of projectTasks.do'>
-            <nz-card nzHoverable nzTitle='{{todo.taskName}}' [nzActions]="[actionEdit, actionEllipsis]">
-              <p>{{todo.taskDescription}} </p>
-            </nz-card>
-            <ng-template #actionEdit>
+      <div nz-col nzSm="12" nzXs="24" nzMd="12" nzLg="8">
 
-              <i nz-icon nzType="edit" (click)='showModalForEdit(todo)'></i>
-            </ng-template>
-            <ng-template #actionEllipsis>
-              <i nz-icon nzType="ellipsis"></i>
-            </ng-template>
-            <br>
-          </div>
+        <h2>TODO</h2>
+        <div class="content" *ngFor='let todo of projectTasks.do'>
+          <nz-card nzHoverable nzTitle='{{todo.taskName}}' [nzActions]="[actionEdit, actionEllipsis]">
+            <p>{{todo.taskDescription}} </p>
+          </nz-card>
+          <ng-template #actionEdit>
+
+            <i nz-icon nzType="edit" (click)='showModalForEdit(todo)'></i>
+          </ng-template>
+          <ng-template #actionEllipsis>
+            <i nz-icon nzType="ellipsis"></i>
+          </ng-template>
+          <br>
         </div>
+
       </div>
 
-      <div nz-col [nzSpan]="8">
-        <div class="wip">
-          <h2>WIP</h2>
-          <div class="content" *ngFor='let todo of projectTasks.wip'>
-            <nz-card nzHoverable nzTitle='{{todo.taskName}}' [nzActions]="[actionEdit, actionEllipsis]">
-              <p>{{todo.taskDescription}} </p>
-            </nz-card>
-            <ng-template #actionEdit>
-              <i nz-icon nzType="edit" (click)='showModalForEdit(todo)'></i>
-            </ng-template>
-            <ng-template #actionEllipsis>
-              <i nz-icon nzType="ellipsis"></i>
-            </ng-template>
-            <br>
-          </div>
+      <div nz-col nzSm="12" nzXs="24" nzMd="12" nzLg="8">
+
+        <h2>WIP</h2>
+        <div class="content" *ngFor='let todo of projectTasks.wip'>
+          <nz-card nzHoverable nzTitle='{{todo.taskName}}' [nzActions]="[actionEdit, actionEllipsis]">
+            <p>{{todo.taskDescription}} </p>
+          </nz-card>
+          <ng-template #actionEdit>
+            <i nz-icon nzType="edit" (click)='showModalForEdit(todo)'></i>
+          </ng-template>
+          <ng-template #actionEllipsis>
+            <i nz-icon nzType="ellipsis"></i>
+          </ng-template>
+          <br>
         </div>
+
 
         <div *ngIf="(!projectTasks.do.length && !projectTasks.wip.length &&  !projectTasks.done.length)">
           <nz-empty></nz-empty>
         </div>
       </div>
 
-      <div nz-col [nzSpan]="8">
-        <div class="done">
-          <h2>DONE</h2>
-          <div class="content" *ngFor='let todo of projectTasks.done'>
-            <nz-card nzHoverable nzTitle='{{todo.taskName}}' [nzActions]="[actionEdit, actionEllipsis]">
-              <p>{{todo.taskDescription}} </p>
-            </nz-card>
-            <ng-template #actionEdit>
+      <div nz-col nzSm="12" nzXs="24" nzMd="12" nzLg="8">
 
-              <i nz-icon nzType="edit" (click)='showModalForEdit(todo)'></i>
-            </ng-template>
-            <ng-template #actionEllipsis>
-              <i nz-icon nzType="ellipsis"></i>
-            </ng-template>
-            <br>
-          </div>
+        <h2>DONE</h2>
+        <div class="content" *ngFor='let todo of projectTasks.done'>
+          <nz-card nzHoverable nzTitle='{{todo.taskName}}' [nzActions]="[actionEdit, actionEllipsis]">
+            <p>{{todo.taskDescription}} </p>
+          </nz-card>
+          <ng-template #actionEdit>
+
+            <i nz-icon nzType="edit" (click)='showModalForEdit(todo)'></i>
+          </ng-template>
+          <ng-template #actionEllipsis>
+            <i nz-icon nzType="ellipsis"></i>
+          </ng-template>
+          <br>
         </div>
       </div>
+
 
     </div>
   </div>
